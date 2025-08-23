@@ -1,6 +1,16 @@
 <%- include("partials/header.ejs") %>
 
-<h1>Hello World</h1>
-<p>this is a paragraph</p>
+<h1 class="head-one">Welcome to the online session blog application</h1>
+<form action="/submit" method="POST">
+    <div class="mb-3">
+        <label for="name" class="form-label">name</label>
+        <input type="text" class="form-control" name="name" id="name"maxlength="20" placeholder="name">
+    </div>
+    <div class="mb-3">
+        <label for="content" class="form-label">Example textarea</label>
+        <textarea class="form-control" name="content" id="content" maxlength="140"></textarea>
+    </div>
+    <input type="submit" value="submit" aria-current="page" class="btn btn-primary">
+</form>
 
 <%- include("partials/footer.ejs") %>
