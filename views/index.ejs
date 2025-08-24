@@ -1,9 +1,9 @@
 <%- include("partials/header.ejs") %>
 
-<h1 class="head-one">Welcome to the online session blog application</h1>
+<h1 class="head-one">Welcome to the simple blog app!</h1>
 <form action="/submit" method="POST">
     <div class="mb-3">
-        <label for="name" class="form-label">name</label>
+        <label for="name" class="form-label"></label>
         <input type="text" class="form-control" name="name" id="name"maxlength="20" placeholder="name">
     </div>
     <div class="mb-3">
@@ -12,5 +12,14 @@
     </div>
     <input type="submit" value="submit" aria-current="page" class="btn btn-primary">
 </form>
+
+<% if (locals.allTweets) { %>
+    <% for (let i = 0; i < allTweets.length; i++) { %>
+        <div class="tweet-div">
+            <p><strong><%= allTweets[i].name %>:</strong> <%= allTweets[i].tweet %></p>
+        </div>
+    <% } %>
+<% } %>
+
 
 <%- include("partials/footer.ejs") %>

@@ -22,7 +22,9 @@ app.post("/Submit", (req, res) => {
     const name = req.body["name"];
     const tweet = req.body["content"];
 
-    tweets.push({name, tweet})
+    tweets.push({name, tweet});
+
+    res.render("index.ejs", {allTweets: tweets});
 });
 
 app.listen(port, () => {
