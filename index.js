@@ -27,6 +27,11 @@ app.post("/Submit", (req, res) => {
     res.render("index.ejs", {allTweets: tweets});
 });
 
+app.post("/clear", (req,res) => {
+    tweets.length = 0;
+    res.redirect("/");
+});
+
 app.listen(port, () => {
     console.log(`Listening to port ${port}`);
 });

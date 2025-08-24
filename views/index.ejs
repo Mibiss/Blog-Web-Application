@@ -10,16 +10,22 @@
         <label for="content" class="form-label">Example textarea</label>
         <textarea class="form-control" name="content" id="content" maxlength="140"></textarea>
     </div>
-    <input type="submit" value="submit" aria-current="page" class="btn btn-primary">
-</form>
+    <div class="button-row">
+    <input type="submit" value="Submit" class="btn btn-primary">
+</form>    
+        <form action="/clear" method="POST" style="display: inline;">
+            <button type="clear" class="btn btn-secondary">Clear All</button>
+        </form>
+    </div>
+
 
 <% if (locals.allTweets) { %>
-    <% for (let i = 0; i < allTweets.length; i++) { %>
-        <div class="tweet-div">
-            <p><strong><%= allTweets[i].name %>:</strong> <%= allTweets[i].tweet %></p>
-        </div>
-    <% } %>
+  <% allTweets.slice().reverse().forEach(tweetObj => { %>
+    <div class="tweet-div">
+      <p><strong><%= tweetObj.name %></strong></p>
+      <p><%= tweetObj.tweet %></p>
+    </div>
+  <% }) %>
 <% } %>
-
 
 <%- include("partials/footer.ejs") %>
