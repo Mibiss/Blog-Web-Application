@@ -3,12 +3,12 @@
 <h1 class="head-one">Welcome to the simple blog app!</h1>
 <form action="/submit" method="POST">
     <div class="mb-3">
-        <label for="name" class="form-label"></label>
-        <input type="text" class="form-control" name="name" id="name"maxlength="20" placeholder="name">
+        <label for="name" class="form-label">name</label>
+        <input type="text" class="form-control" name="name" id="name" maxlength="20" required>
     </div>
     <div class="mb-3">
-        <label for="content" class="form-label">Example textarea</label>
-        <textarea class="form-control" name="content" id="content" maxlength="140"></textarea>
+        <label for="content" class="form-label">textarea</label>
+        <textarea class="form-control" name="content" id="content" maxlength="140" required></textarea>
     </div>
     <div class="button-row">
     <input type="submit" value="Submit" class="btn btn-primary">
@@ -22,7 +22,7 @@
 <% if (locals.allTweets) { %>
   <% allTweets.slice().reverse().forEach(tweetObj => { %>
     <div class="tweet-div">
-      <p><strong><%= tweetObj.name %></strong></p>
+      <p><strong><%= tweetObj.name  //buttons with edit and clear on this line%></strong></p>
       <p><%= tweetObj.tweet %></p>
     </div>
   <% }) %>
