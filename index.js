@@ -32,6 +32,14 @@ app.post("/clear", (req,res) => {
     res.redirect("/");
 });
 
+app.post("/edit", (req,res) => {
+    //
+});
+
+app.post("/remove", (req,res) => {
+    
+});
+
 app.listen(port, () => {
     console.log(`Listening to port ${port}`);
 });

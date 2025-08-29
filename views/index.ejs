@@ -22,8 +22,20 @@
 <% if (locals.allTweets) { %>
   <% allTweets.slice().reverse().forEach(tweetObj => { %>
     <div class="tweet-div">
-      <p><strong><%= tweetObj.name  //buttons with edit and clear on this line%></strong></p>
-      <p><%= tweetObj.tweet %></p>
+      <div class="name-div">
+        <p><strong><%= tweetObj.name//buttons with edit and clear on this line%></strong></p>
+      </div>
+      <div class="funtionality-div">
+      <form action="/edit" method="POST">
+        <button type="edit" class="btn btn-outline-secondary" style="padding-right: 10px;">edit</button>
+      </form>
+      <form action="/remove" method="POST">
+        <button type="remove" class="btn btn-outline-secondary">remove</button>
+      </form>
+      </div>
+      <div class="text-div">
+        <p><%= tweetObj.tweet %></p>
+      </div>
     </div>
   <% }) %>
 <% } %>
