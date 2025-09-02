@@ -1,5 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
+import { v4 as uuidv4 } from "uuid";
 
 const app = express();
 const port = 3000;
@@ -22,7 +23,7 @@ app.post("/Submit", (req, res) => {
     const name = req.body["name"];
     const tweet = req.body["content"];
 
-    tweets.push({name, tweet});
+    tweets.push({id: uuidv4(), name, tweet});
 
     res.render("index.ejs", {allTweets: tweets});
 });
@@ -37,7 +38,13 @@ app.post("/edit", (req,res) => {
 });
 
 app.post("/remove", (req,res) => {
-    
+    const id = req.body.id;
+    const index = tweets.findIndex(tweet => tweet.id == id);
+
+    if (index !== -1) {
+        tweets.splice(index, 1);
+    }
+    res.render("index.ejs", {allTweets: tweets});
 });
 
 app.listen(port, () => {
