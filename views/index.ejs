@@ -1,20 +1,24 @@
 <%- include("partials/header.ejs") %>
 
 <h1 class="head-one">Welcome to the simple blog app!</h1>
-<form action="/submit" method="POST">
+<form action="<%= locals.editTweet ? '/update' : '/submit' %>" method="POST">
     <div class="mb-3">
         <label for="name" class="form-label">name</label>
-        <input type="text" class="form-control" name="name" id="name" maxlength="20" required>
+        <input type="text" class="form-control" name="name" id="name" maxlength="20" required
+          value="<%= locals.editTweet ? editTweet.name : '' %>">
     </div>
     <div class="mb-3">
         <label for="content" class="form-label">textarea</label>
-        <textarea class="form-control" name="content" id="content" maxlength="140" required></textarea>
+        <textarea class="form-control" name="content" id="content" maxlength="140" required><%= locals.editTweet ? editTweet.tweet : '' %></textarea>
     </div>
+    <% if (locals.editTweet) { %>
+      <input type="hidden" name="id" value="<%= locals.editTweet.id %>">
+    <% } %>
     <div class="button-row">
-    <input type="submit" value="Submit" class="btn btn-primary">
+    <input type="submit" value="<%= locals.editTweet ? 'Update' : 'Submit' %>" class="btn btn-primary">
 </form>    
         <form action="/clear" method="POST" style="display: inline;">
-            <button type="clear" class="btn btn-secondary">Clear All</button>
+            <button type="submit" class="btn btn-secondary">Clear All</button>
         </form>
     </div>
 
@@ -23,11 +27,12 @@
   <% allTweets.slice().reverse().forEach(tweetObj => { %>
     <div class="tweet-div">
       <div class="name-div">
-        <p><strong><%= tweetObj.name//buttons with edit and clear on this line%></strong></p>
+        <p><strong><%= tweetObj.name%></strong></p>
       </div>
       <div class="funtionality-div">
-      <form action="/edit" method="POST">
-        <button type="edit" class="btn btn-outline-secondary" style="padding-right: 10px;">edit</button>
+      <form action="/edit" method="POST" style="display: inline;">
+        <input type="hidden" name="id" value="<%= tweetObj.id %>">
+        <button type="submit" class="btn btn-outline-secondary">edit</button>
       </form>
       <form action="/remove" method="POST" style="display: inline;">
         <input type="hidden" name="id" value="<%= tweetObj.id %>">

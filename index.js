@@ -34,7 +34,22 @@ app.post("/clear", (req,res) => {
 });
 
 app.post("/edit", (req,res) => {
-    //
+    const id = req.body.id;
+    const tweet = tweets.find(t => t.id === id);
+
+    res.render("index.ejs", { allTweets: tweets, editTweet: tweet });
+});
+
+app.post("/update", (req, res) => {
+    const { id, name, content } = req.body;
+    const index = tweets.findIndex(t => t.id === id);
+
+    if (index !== -1) {
+        tweets[index].name = name;
+        tweets[index].tweet = content;
+    }
+
+    res.render("index.ejs", { allTweets: tweets });
 });
 
 app.post("/remove", (req,res) => {
