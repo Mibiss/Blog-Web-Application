@@ -1,49 +1,51 @@
 <%- include("partials/header.ejs") %>
 
-<h1 class="head-one">Welcome to the simple blog app!</h1>
-<form action="<%= locals.editTweet ? '/update' : '/submit' %>" method="POST">
-    <div class="mb-3">
-        <label for="name" class="form-label">name</label>
-        <input type="text" class="form-control" name="name" id="name" maxlength="20" required
-          value="<%= locals.editTweet ? editTweet.name : '' %>">
+<main>
+  <h1 class="page-title">Posts</h1>
+
+  <form class="post-form" action="<%= locals.editTweet ? '/update' : '/submit' %>" method="POST">
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" maxlength="20" required
+        value="<%= locals.editTweet ? editTweet.name : '' %>">
     </div>
-    <div class="mb-3">
-        <label for="content" class="form-label">textarea</label>
-        <textarea class="form-control" name="content" id="content" maxlength="140" required><%= locals.editTweet ? editTweet.tweet : '' %></textarea>
+    <div class="form-group">
+      <label for="content">Content</label>
+      <textarea name="content" id="content" maxlength="140" required><%= locals.editTweet ? editTweet.tweet : '' %></textarea>
     </div>
     <% if (locals.editTweet) { %>
       <input type="hidden" name="id" value="<%= locals.editTweet.id %>">
     <% } %>
     <div class="button-row">
-    <input type="submit" value="<%= locals.editTweet ? 'Update' : 'Submit' %>" class="btn btn-primary">
-</form>    
-        <form action="/clear" method="POST" style="display: inline;">
-            <button type="submit" class="btn btn-secondary">Clear All</button>
-        </form>
+      <input type="submit" value="<%= locals.editTweet ? 'Update' : 'Submit' %>" class="btn btn-primary">
     </div>
+  </form>
+  <form action="/clear" method="POST" style="margin-top: 0.75rem; margin-bottom: 1.5rem;">
+    <button type="submit" class="btn btn-secondary">Clear All</button>
+  </form>
 
-
-<% if (locals.allTweets) { %>
-  <% allTweets.slice().reverse().forEach(tweetObj => { %>
-    <div class="tweet-div">
-      <div class="name-div">
-        <p><strong><%= tweetObj.name%></strong></p>
-      </div>
-      <div class="funtionality-div">
-      <form action="/edit" method="POST" style="display: inline;">
-        <input type="hidden" name="id" value="<%= tweetObj.id %>">
-        <button type="submit" class="btn btn-outline-secondary">edit</button>
-      </form>
-      <form action="/remove" method="POST" style="display: inline;">
-        <input type="hidden" name="id" value="<%= tweetObj.id %>">
-        <button type="submit" class="btn btn-outline-secondary">remove</button>
-      </form>
-      </div>
-      <div class="text-div">
-        <p><%= tweetObj.tweet %></p>
-      </div>
+  <% if (locals.allTweets && allTweets.length > 0) { %>
+    <div class="posts-list">
+      <% allTweets.slice().reverse().forEach(tweetObj => { %>
+        <div class="post-card">
+          <div class="post-card-header">
+            <span class="post-author"><%= tweetObj.name %></span>
+            <div class="post-actions">
+              <form action="/edit" method="POST" style="display: inline;">
+                <input type="hidden" name="id" value="<%= tweetObj.id %>">
+                <button type="submit" class="btn btn-ghost">edit</button>
+              </form>
+              <form action="/remove" method="POST" style="display: inline;">
+                <input type="hidden" name="id" value="<%= tweetObj.id %>">
+                <button type="submit" class="btn btn-ghost">remove</button>
+              </form>
+            </div>
+          </div>
+          <p class="post-content"><%= tweetObj.tweet %></p>
+        </div>
+      <% }) %>
     </div>
-  <% }) %>
-<% } %>
+  <% } %>
+</main>
 
 <%- include("partials/footer.ejs") %>
