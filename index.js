@@ -3,7 +3,7 @@ import bodyParser from "body-parser";
 import { v4 as uuidv4 } from "uuid";
 
 const app = express();
-const port = 3000;
+const port = process.env.port || 3000;
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -63,7 +63,7 @@ app.post("/remove", (req,res) => {
 });
 
 app.listen(port, () => {
-    console.log(`Listening to port ${port}`);
+    console.log(`Server running on port ${port}`);
 });
 
 
